@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def AdminView(request):
+    return render(request, "admin.html")
