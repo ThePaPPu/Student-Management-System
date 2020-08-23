@@ -1,5 +1,5 @@
-from django.contrib.auth import login
-from django.http import HttpResponse
+from django.contrib.auth import login, logout
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 from student_app.EmailBackEnd import EmailBackEnd
@@ -30,3 +30,7 @@ def GetUserDetails(request):
         return HttpResponse("User : " + request.user.email + " Usertype : " + request.user.user_type)
     else:
         return HttpResponse("Please Login First!")
+
+def LogoutUser(request):
+    logout(request)
+    return HttpResponseRedirect("/")

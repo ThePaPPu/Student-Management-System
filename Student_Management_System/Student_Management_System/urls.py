@@ -10,6 +10,7 @@ urlpatterns = [
     path('login', views.LoginView),
     path('doLogin', views.doLogin),
     path('get_user_details', views.GetUserDetails),
+    path('logout_user', views.LogoutUser),
 
 
 ]+static(settings.STATIC_URL,document_root = settings.STATIC_ROOT)
