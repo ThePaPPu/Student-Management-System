@@ -8,5 +8,7 @@ from student_app import views
 urlpatterns = [
     path('', views.AdminView),
     path('login', views.LoginView),
-    
+    path('doLogin', views.doLogin),
+
+
 ]+static(settings.STATIC_URL,document_root = settings.STATIC_ROOT)
