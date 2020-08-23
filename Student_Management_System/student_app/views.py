@@ -24,3 +24,9 @@ def doLogin(request):
         else:
             # login(request, user)
             return HttpResponse("Invalid Login")
+
+def GetUserDetails(request):
+    if request.user is not None:
+        return HttpResponse("User : " + request.user.email + " Usertype : " + request.user.user_type)
+    else:
+        return HttpResponse("Please Login First!")
