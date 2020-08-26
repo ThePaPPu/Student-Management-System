@@ -5,8 +5,8 @@ from django.shortcuts import render
 from student_app.EmailBackEnd import EmailBackEnd
 
 
-def AdminView(request):
-    return render(request, "admin.html")
+def DemoView(request):
+    return render(request, "demo.html")
 
 def LoginView(request):
     return render(request, "login.html")

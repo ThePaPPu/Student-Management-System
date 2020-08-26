@@ -6,7 +6,7 @@ from Student_Management_System import settings
 from student_app import views
 
 urlpatterns = [
-    path('', views.AdminView),
+    path('', views.DemoView),
     path('login', views.LoginView),
     path('doLogin', views.doLogin),
     path('get_user_details', views.GetUserDetails),
