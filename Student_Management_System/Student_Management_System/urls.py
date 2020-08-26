@@ -3,14 +3,15 @@ from django.contrib import admin
 from django.urls import path
 
 from Student_Management_System import settings
-from student_app import views
+from student_app import views, AdminViews
 
 urlpatterns = [
-    path('', views.DemoView),
-    path('login', views.LoginView),
+    #path('', views.DemoView),
+    path('', views.LoginView),
     path('doLogin', views.doLogin),
     path('get_user_details', views.GetUserDetails),
     path('logout_user', views.LogoutUser),
+    path('admin_home', AdminViews.admin_home),
 
 
 ]+static(settings.STATIC_URL,document_root = settings.STATIC_ROOT)
