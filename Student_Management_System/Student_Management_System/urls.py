@@ -20,6 +20,7 @@ urlpatterns = [
 
     path('add_course', AdminViews.add_course),
     path('add_course_save', AdminViews.add_course_save),
+    path('manage_course', AdminViews.manage_course),
 
     path('add_student', AdminViews.add_student),
     path('add_student_save', AdminViews.add_student_save),

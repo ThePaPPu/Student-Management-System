@@ -137,3 +137,8 @@ def manage_staff(request):
 def manage_student(request):
     students = Students.objects.all()
     return render(request, "admin_template/manage_student_template.html", {"students": students})
+
+
+def manage_course(request):
+    courses = Courses.objects.all()
+    return render(request, "admin_template/manage_course_template.html", {"courses": courses})
