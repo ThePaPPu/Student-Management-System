@@ -28,6 +28,8 @@ urlpatterns = [
     path('add_student', AdminViews.add_student),
     path('add_student_save', AdminViews.add_student_save),
     path('manage_student', AdminViews.manage_student),
+    path('edit_student/<str:student_id>', AdminViews.edit_student),
+    path('edit_student_save', AdminViews.edit_student_save),
 
     path('add_subject', AdminViews.add_subject),
     path('add_subject_save', AdminViews.add_subject_save),
