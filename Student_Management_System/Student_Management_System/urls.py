@@ -17,7 +17,7 @@ urlpatterns = [
     path('add_staff', AdminViews.add_staff),
     path('add_staff_save', AdminViews.add_staff_save),
 
-
+    path('manage_staff', AdminViews.manage_staff),
 
     path('add_course', AdminViews.add_course),
     path('add_course_save', AdminViews.add_course_save),

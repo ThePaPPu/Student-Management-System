@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from student_app.models import CustomUser, Courses, Subjects
+from student_app.models import CustomUser, Courses, Subjects, Staffs
 
 
 def admin_home(request):
@@ -129,3 +129,6 @@ def add_subject_save(request):
             return HttpResponseRedirect("/add_subject")
 
 
+def manage_staff(request):
+    staffs = Staffs.objects.all()
+    return render(request, "admin_template/manage_staff_template.html",{"staffs":staffs})
