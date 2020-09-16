@@ -1,6 +1,6 @@
 {% extends 'admin_template/base_template.html' %}
 {% block page_title %}
-Add Staff
+Add Course Teacher
 {% endblock page_title %}
 
 
@@ -13,11 +13,11 @@ Add Staff
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Add Staff</h3>
+                <h3 class="card-title">Add Course Teacher</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="/add_staff_save" method="post">
+              <form role="form" action="/add_course_teacher_save" method="post">
                 {% csrf_token %}
                 <div class="card-body">
                   <div class="form-group">
@@ -65,7 +65,7 @@ Add Staff
         </div>
 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary btn-block">Add Staff</button>
+                  <button type="submit" class="btn btn-primary btn-block">Add Course Teacher</button>
                 </div>
               </form>
             </div>

@@ -11,11 +11,11 @@ def admin_home(request):
     return render(request, "admin_template/home_content.html")
 
 
-def add_staff(request):
-    return render(request, "admin_template/add_staff_template.html")
+def add_course_teacher(request):
+    return render(request, "admin_template/add_course_teacher_template.html")
 
 
-def add_staff_save(request):
+def add_course_teacher_save(request):
     if request.method != "POST":
         return HttpResponse("Method not allowed")
     else:
@@ -31,11 +31,11 @@ def add_staff_save(request):
                                                   last_name=last_name, first_name=first_name, user_type=2)
             user.staffs.address = address
             user.save()
-            messages.success(request, "Successfully Added a Staff")
-            return HttpResponseRedirect("/add_staff")
+            messages.success(request, "Successfully Added a Course Teacher")
+            return HttpResponseRedirect("/add_course_teacher")
         except:
-            messages.error(request, "Failed to Add  a Staff")
-            return HttpResponseRedirect("/add_staff")
+            messages.error(request, "Failed to Add  a Course Teacher")
+            return HttpResponseRedirect("/add_course_teacher")
 
 
 def add_course(request):
@@ -129,9 +129,9 @@ def add_subject_save(request):
             return HttpResponseRedirect("/add_subject")
 
 
-def manage_staff(request):
+def manage_course_teacher(request):
     staffs = Staffs.objects.all()
-    return render(request, "admin_template/manage_staff_template.html", {"staffs": staffs})
+    return render(request, "admin_template/manage_course_teacher_template.html", {"staffs": staffs})
 
 
 def manage_student(request):

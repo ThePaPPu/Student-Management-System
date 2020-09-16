@@ -14,7 +14,7 @@
           <img src="{% static "dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" %}">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{user.username}}</a>
         </div>
       </div>
 
@@ -25,19 +25,19 @@
                with font-awesome or any other icon font library -->
 
           <li class="nav-item">
-            <a href="/add_staff" class="nav-link">
+            <a href="/add_course_teacher" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Add Staff
+                Add Course Teacher
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/manage_staff" class="nav-link">
+            <a href="/manage_course_teacher" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Manage Staff
+                Manage Course Teacher
                 <span class="right badge badge-danger">New</span>
               </p>
             </a>
