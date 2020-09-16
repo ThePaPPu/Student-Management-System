@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from student_app.models import CustomUser, Courses
+from student_app.models import CustomUser, Courses, Subjects
 
 
 def admin_home(request):
@@ -100,3 +100,32 @@ def add_student_save(request):
         except:
             messages.error(request, "Failed to Add  a Student")
             return HttpResponseRedirect("/add_student")
+
+
+def add_subject(request):
+    courses = Courses.objects.all()
+    staffs = CustomUser.objects.filter(user_type=2)
+    return render(request, "admin_template/add_subject_template.html", {"staffs": staffs, "courses":courses})
+
+
+def add_subject_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method not allowed</h2>")
+    else:
+        subject_name = request.POST.get("subject_name")
+        course_id = request.POST.get("course")
+        course = Courses.objects.get(id=course_id)
+        staff_id = request.POST.get("staff")
+        staff = CustomUser.objects.get(id=staff_id)
+
+        try:
+            subject = Subjects(subject_name=subject_name, course_id = course, staff_id=staff)
+            subject.save()
+            messages.success(request, "Successfully Added Subject")
+            return HttpResponseRedirect("/add_subject")
+
+        except:
+            messages.error(request, "Failed to add Subject")
+            return HttpResponseRedirect("/add_subject")
+
+
