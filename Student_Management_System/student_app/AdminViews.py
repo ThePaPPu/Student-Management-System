@@ -147,3 +147,43 @@ def manage_course(request):
 def manage_subject(request):
     subjects = Subjects.objects.all()
     return render(request, "admin_template/manage_subject_template.html", {"subjects": subjects})
+
+
+def edit_course_teacher(request,staff_id):
+    staff=Staffs.objects.get(admin=staff_id)
+    return render(request, "admin_template/edit_course_teacher_template.html", {"staff":staff})
+
+
+def edit_course_teacher_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method not allowed</h2>")
+
+    else:
+        staff_id = request.POST.get("staff_id")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        email = request.POST.get("email")
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        address = request.POST.get("address")
+
+        try:
+
+            user=CustomUser.objects.get(id=staff_id)
+            user.first_name=first_name
+            user.last_name=last_name
+            user.email=email
+            user.username=username
+            user.password=password
+            user.save()
+
+            staff_model=Staffs.objects.get(admin=staff_id)
+            staff_model.address=address
+            staff_model.save()
+
+            messages.success(request, "Successfully Edited Course Teacher")
+            return HttpResponseRedirect("/edit_course_teacher/"+staff_id)
+
+        except:
+            messages.error(request, "Failed to Edit Course Teacher")
+            return HttpResponseRedirect("/edit_course_teacher/"+staff_id)

@@ -17,6 +17,9 @@ urlpatterns = [
     path('add_course_teacher', AdminViews.add_course_teacher),
     path('add_course_teacher_save', AdminViews.add_course_teacher_save),
     path('manage_course_teacher', AdminViews.manage_course_teacher),
+    path('edit_course_teacher/<str:staff_id>', AdminViews.edit_course_teacher),
+    path('edit_course_teacher_save', AdminViews.edit_course_teacher_save),
+
 
     path('add_course', AdminViews.add_course),
     path('add_course_save', AdminViews.add_course_save),
