@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from student_app.models import CustomUser, Courses, Subjects, Staffs
+from student_app.models import CustomUser, Courses, Subjects, Staffs, Students
 
 
 def admin_home(request):
@@ -80,16 +80,16 @@ def add_student_save(request):
 
         try:
             user = CustomUser.objects.create_user(username=username, password=password, email=email,
-                                               last_name=last_name, first_name=first_name, user_type=3)
+                                                  last_name=last_name, first_name=first_name, user_type=3)
             user.students.gender = gender
             user.students.profile_pic = ""
             user.students.address = address
             course_obj = Courses.objects.get(id=course_id)
             user.students.course_id = course_obj
 
-        #start_date=datetime.datetime.strptime(session_start,'%d-%m-%y').strftime('%Y-%m-%d')
+            # start_date=datetime.datetime.strptime(session_start,'%d-%m-%y').strftime('%Y-%m-%d')
 
-        #end_date = datetime.datetime.strptime(session_end, '%d-%m-%y').strftime('%Y-%m-%d')
+            # end_date = datetime.datetime.strptime(session_end, '%d-%m-%y').strftime('%Y-%m-%d')
 
             user.students.session_start_year = session_start
             user.students.session_end_year = session_end
@@ -105,7 +105,7 @@ def add_student_save(request):
 def add_subject(request):
     courses = Courses.objects.all()
     staffs = CustomUser.objects.filter(user_type=2)
-    return render(request, "admin_template/add_subject_template.html", {"staffs": staffs, "courses":courses})
+    return render(request, "admin_template/add_subject_template.html", {"staffs": staffs, "courses": courses})
 
 
 def add_subject_save(request):
@@ -119,7 +119,7 @@ def add_subject_save(request):
         staff = CustomUser.objects.get(id=staff_id)
 
         try:
-            subject = Subjects(subject_name=subject_name, course_id = course, staff_id=staff)
+            subject = Subjects(subject_name=subject_name, course_id=course, staff_id=staff)
             subject.save()
             messages.success(request, "Successfully Added Subject")
             return HttpResponseRedirect("/add_subject")
@@ -131,4 +131,9 @@ def add_subject_save(request):
 
 def manage_staff(request):
     staffs = Staffs.objects.all()
-    return render(request, "admin_template/manage_staff_template.html",{"staffs":staffs})
+    return render(request, "admin_template/manage_staff_template.html", {"staffs": staffs})
+
+
+def manage_student(request):
+    students = Students.objects.all()
+    return render(request, "admin_template/manage_student_template.html", {"students": students})
