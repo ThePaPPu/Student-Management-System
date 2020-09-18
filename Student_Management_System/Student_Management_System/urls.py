@@ -36,6 +36,8 @@ urlpatterns = [
     path('add_subject', AdminViews.add_subject),
     path('add_subject_save', AdminViews.add_subject_save),
     path('manage_subject', AdminViews.manage_subject),
+    path('edit_subject/<str:subject_id>', AdminViews.edit_subject),
+    path('edit_subject_save', AdminViews.edit_subject_save),
 
 
 ]+static(settings.STATIC_URL,document_root = settings.STATIC_ROOT)
