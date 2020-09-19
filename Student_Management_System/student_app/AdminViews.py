@@ -47,7 +47,7 @@ def manage_course_teacher(request):
 
 def edit_course_teacher(request, staff_id):
     staff = Staffs.objects.get(admin=staff_id)
-    return render(request, "admin_template/edit_course_teacher_template.html", {"staff": staff})
+    return render(request, "admin_template/edit_course_teacher_template.html", {"staff": staff, "id":staff_id})
 
 
 def edit_course_teacher_save(request):
@@ -117,7 +117,7 @@ def manage_course(request):
 
 def edit_course(request, course_id):
     course = Courses.objects.get(id=course_id)
-    return render(request, "admin_template/edit_course_template.html", {"course": course})
+    return render(request, "admin_template/edit_course_template.html", {"course": course, "id":course_id})
 
 
 def edit_course_save(request):
@@ -199,7 +199,7 @@ def manage_student(request):
 def edit_student(request, student_id):
     courses = Courses.objects.all()
     student = Students.objects.get(admin=student_id)
-    return render(request, "admin_template/edit_student_template.html", {"student": student, "courses": courses})
+    return render(request, "admin_template/edit_student_template.html", {"student": student, "courses": courses, "id":student_id})
 
 
 def edit_student_save(request):
@@ -219,7 +219,7 @@ def edit_student_save(request):
         course_id = request.POST.get("course")
         gender = request.POST.get("gender")
 
-        if request.FILES['profile_pic']:
+        if request.FILES.get('profile_pic',False):
             profile_pic = request.FILES['profile_pic']
             fs = FileSystemStorage()
             filename = fs.save(profile_pic.name, profile_pic)
@@ -298,7 +298,7 @@ def edit_subject(request, subject_id):
     courses = Courses.objects.all()
     staffs = CustomUser.objects.filter(user_type=2)
     return render(request, "admin_template/edit_subject_template.html",
-                  {"subject": subject, "courses": courses, "staffs": staffs})
+                  {"subject": subject, "courses": courses, "staffs": staffs, "id":subject_id})
 
 
 def edit_subject_save(request):
