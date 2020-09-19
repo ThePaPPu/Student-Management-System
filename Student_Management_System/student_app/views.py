@@ -4,6 +4,7 @@ from django.core.mail import message
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
 from student_app.EmailBackEnd import EmailBackEnd
 
@@ -23,7 +24,16 @@ def doLogin(request):
                                          password=request.POST.get("password"))
         if user is not None:
             login(request,user)
-            return HttpResponseRedirect('/admin_home')
+
+            if user.user_type == "1":
+                return HttpResponseRedirect('/admin_home')
+
+            elif user.user_type == '2':
+                return HttpResponseRedirect('/teacher_home')
+
+            else:
+                return HttpResponseRedirect(reverse("student_home"))
+
         else:
             # login(request, user)
             messages.error(request,"Invalid Login Details")

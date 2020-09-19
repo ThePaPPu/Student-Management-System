@@ -3,9 +3,12 @@ from django.contrib import admin
 from django.urls import path
 
 from Student_Management_System import settings
-from student_app import views, AdminViews
+from student_app import views, AdminViews, TeacherView, StudentView
 
 urlpatterns = [
+
+    #Admin
+
     #path('', views.DemoView),
     path('', views.LoginView),
     path('doLogin', views.doLogin, name="do_login"),
@@ -38,6 +41,20 @@ urlpatterns = [
     path('manage_subject', AdminViews.manage_subject, name="manage_subject"),
     path('edit_subject/<str:subject_id>', AdminViews.edit_subject, name="edit_subject"),
     path('edit_subject_save', AdminViews.edit_subject_save, name="edit_subject_save"),
+
+
+    #Teacher
+
+    path('teacher_home', TeacherView.teacher_home, name="teacher_home"),
+
+
+
+
+
+
+    #Student
+
+    path('student_home', StudentView.student_home, name="student_home"),
 
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
