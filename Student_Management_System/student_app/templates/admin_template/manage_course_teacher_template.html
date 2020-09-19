@@ -52,10 +52,13 @@ Manage Course Teacher
                       <td>{{ staff.address }}</td>
 
                       <!-- Last Login Output Dekhacche na!! -->
-                      <td>{{ staff.admin.last_login }}</td>
+                      <td>{{ staff.updated_at }}</td>
 
                       <td>{{ staff.admin.date_joined }}</td>
-                      <td><a href="/edit_course_teacher/{{ staff.admin.id }}" class="btn btn-success">Edit</a></td>
+                      <td><a href="/edit_course_teacher/{{ staff.admin.id }}" class="btn btn-success">Update</a></td>
+
+                      <!-- Delete Button r Kaj korte hbe!! -->
+
                     </tr>
                     {% endfor %}
                   </tbody>
