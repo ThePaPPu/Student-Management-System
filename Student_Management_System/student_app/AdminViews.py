@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+
+from student_app.forms import AddStudentForm
 from student_app.models import CustomUser, Courses, Subjects, Staffs, Students
 
 
@@ -144,51 +146,58 @@ def edit_course_save(request):
 # Students
 
 def add_student(request):
-    courses = Courses.objects.all()
-    return render(request, "admin_template/add_student_template.html", {"course": courses})
+    form = AddStudentForm()
+    return render(request, "admin_template/add_student_template.html", {"form":form})
 
 
 def add_student_save(request):
     if request.method != "POST":
         return HttpResponse("Method not allowed")
     else:
-        first_name = request.POST.get("first_name")
-        last_name = request.POST.get("last_name")
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        address = request.POST.get("address")
-        session_start = request.POST.get("session_start")
-        session_end = request.POST.get("session_end")
-        course_id = request.POST.get("course")
-        gender = request.POST.get("gender")
+        form = AddStudentForm(request.POST, request.FILES)
 
-        profile_pic = request.FILES['profile_pic']
-        fs = FileSystemStorage()
-        filename = fs.save(profile_pic.name, profile_pic)
-        profile_pic_url = fs.url(filename)
+        if form.is_valid():
+            first_name = form.cleaned_data["first_name"]
+            last_name = form.cleaned_data["last_name"]
+            username = form.cleaned_data["username"]
+            email = form.cleaned_data["email"]
+            password = form.cleaned_data["password"]
+            address = form.cleaned_data["address"]
+            session_start = form.cleaned_data["session_start"]
+            session_end = form.cleaned_data["session_end"]
+            course_id = form.cleaned_data["course"]
+            gender = form.cleaned_data["gender"]
 
-        try:
-            user = CustomUser.objects.create_user(username=username, password=password, email=email,
-                                                  last_name=last_name, first_name=first_name, user_type=3)
-            user.students.gender = gender
-            user.students.profile_pic = profile_pic_url
-            user.students.address = address
-            course_obj = Courses.objects.get(id=course_id)
-            user.students.course_id = course_obj
+            profile_pic = request.FILES['profile_pic']
+            fs = FileSystemStorage()
+            filename = fs.save(profile_pic.name, profile_pic)
+            profile_pic_url = fs.url(filename)
 
-            # start_date=datetime.datetime.strptime(session_start,'%d-%m-%y').strftime('%Y-%m-%d')
-            # end_date = datetime.datetime.strptime(session_end, '%d-%m-%y').strftime('%Y-%m-%d')
+            try:
+                user = CustomUser.objects.create_user(username=username, password=password, email=email,
+                                                      last_name=last_name, first_name=first_name, user_type=3)
+                user.students.gender = gender
+                user.students.profile_pic = profile_pic_url
+                user.students.address = address
+                course_obj = Courses.objects.get(id=course_id)
+                user.students.course_id = course_obj
 
-            user.students.session_start_year = session_start
-            user.students.session_end_year = session_end
-            user.save()
-            messages.success(request, "Successfully Added a Student")
-            return HttpResponseRedirect("/add_student")
+                # start_date=datetime.datetime.strptime(session_start,'%d-%m-%y').strftime('%Y-%m-%d')
+                # end_date = datetime.datetime.strptime(session_end, '%d-%m-%y').strftime('%Y-%m-%d')
 
-        except:
-            messages.error(request, "Failed to Add  a Student")
-            return HttpResponseRedirect("/add_student")
+                user.students.session_start_year = session_start
+                user.students.session_end_year = session_end
+                user.save()
+                messages.success(request, "Successfully Added a Student")
+                return HttpResponseRedirect("/add_student")
+
+            except:
+                messages.error(request, "Failed to Add  a Student")
+                return HttpResponseRedirect("/add_student")
+
+        else:
+            form = AddStudentForm(request.POST)
+            return render(request, "admin_template/add_student_template.html", {"form": form})
 
 
 def manage_student(request):
