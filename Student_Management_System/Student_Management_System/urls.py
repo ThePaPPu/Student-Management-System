@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 
 from Student_Management_System import settings
-from student_app import views, AdminViews, TeacherView, StudentView
+from student_app import views, AdminViews, TeacherViews, StudentViews
 
 urlpatterns = [
 
@@ -45,7 +45,7 @@ urlpatterns = [
 
     #Teacher
 
-    path('teacher_home', TeacherView.teacher_home, name="teacher_home"),
+    path('teacher_home', TeacherViews.teacher_home, name="teacher_home"),
 
 
 
@@ -54,7 +54,7 @@ urlpatterns = [
 
     #Student
 
-    path('student_home', StudentView.student_home, name="student_home"),
+    path('student_home', StudentViews.student_home, name="student_home"),
 
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
