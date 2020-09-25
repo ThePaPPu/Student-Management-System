@@ -70,7 +70,7 @@ Manage Student
                       <td>{{ student.updated_at }}</td>
 
                       <td>{{ student.admin.date_joined }}</td>
-                      <td><a href="/edit_student/{{ student.admin.id }}" class="btn btn-success">Update</a></td>
+                      <td><a href="{% url 'edit_student' student_id=student.admin.id %}" class="btn btn-success">Update</a></td>
                       <!-- Delete Button r Kaj korte hbe!! -->
 
                     </tr>
