@@ -12,6 +12,7 @@ urlpatterns = [
     #path('', views.DemoView),
     path('', views.LoginView),
     path('doLogin', views.doLogin, name="do_login"),
+    path('',views.ShowLoginPage,name="show_login"),
     path('get_user_details', views.GetUserDetails, name="get_user_details"),
     path('logout_user', views.LogoutUser, name="logout"),
 

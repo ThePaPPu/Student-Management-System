@@ -48,3 +48,6 @@ def GetUserDetails(request):
 def LogoutUser(request):
     logout(request)
     return HttpResponseRedirect("/")
+
+def ShowLoginPage(request):
+    return render(request,"login_page.html")
