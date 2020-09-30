@@ -360,8 +360,8 @@ def edit_subject_save(request):
             return HttpResponseRedirect(reverse("edit_subject",kwargs={"subject_id":subject_id}))
 
 
-def manage_session(request):
-    return render(request, "admin_template/manage_session_template.html")
+def add_session(request):
+    return render(request, "admin_template/add_session_template.html")
 
 
 def add_session_save(request):
