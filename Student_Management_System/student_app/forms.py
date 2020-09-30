@@ -1,6 +1,6 @@
 from django import forms
 
-from student_app.models import Courses
+from student_app.models import Courses, SessionYearModel
 
 
 class DateInput(forms.DateInput):
@@ -22,26 +22,36 @@ class AddStudentForm(forms.Form):
 
     address = forms.CharField(label="Address", max_length=50, widget=forms.TextInput(attrs={"class":"form-control"}))
 
-    courses = Courses.objects.all()
     course_list = []
-    for course in courses:
-        small_course = (course.id, course.course_name)
-        course_list.append(small_course)
+    try:
+        courses = Courses.objects.all()
+        for course in courses:
+            small_course = (course.id, course.course_name)
+            course_list.append(small_course)
 
-    course = forms.ChoiceField(label="Course", choices=course_list,
-                               widget=forms.Select(attrs={"class":"form-control"}))
+    except:
+        pass
+        #course_list = []
+
+
+    session_list = []
+    sessions= SessionYearModel.object.all()
+    for session in sessions:
+        small_session = (session.id, str(session.session_start_year)+ "  TO  " + str(session.session_end_year))
+        session_list.append(small_session)
 
     gender_choice = (
         ("Male", "Male"),
         ("Female", "Female")
     )
 
+    course = forms.ChoiceField(label="Course", choices=course_list,
+                               widget=forms.Select(attrs={"class": "form-control"}))
+
     gender = forms.ChoiceField(label="Gender", choices=gender_choice,
                                widget=forms.Select(attrs={"class":"form-control"}))
 
-    session_start = forms.DateField(label="Session Start", widget=DateInput(attrs={"class":"form-control"}))
-
-    session_end = forms.DateField(label="Session End", widget=DateInput(attrs={"class":"form-control"}))
+    session_year_id = forms.ChoiceField(label="Session Year", widget=forms.Select(attrs={"class": "form-control"}),choices=session_list)
 
     profile_pic = forms.FileField(label="Image", widget=forms.FileInput(attrs={"class":"form-control"}))
 
@@ -64,25 +74,39 @@ class EditStudentForm(forms.Form):
 
     address = forms.CharField(label="Address", max_length=50, widget=forms.TextInput(attrs={"class":"form-control"}), required=False)
 
-    courses = Courses.objects.all()
     course_list = []
-    for course in courses:
-        small_course = (course.id, course.course_name)
-        course_list.append(small_course)
+    try:
+        courses = Courses.objects.all()
+        for course in courses:
+            small_course = (course.id, course.course_name)
+            course_list.append(small_course)
 
-    course = forms.ChoiceField(label="Course", choices=course_list,
-                               widget=forms.Select(attrs={"class":"form-control"}), required=False)
+    except:
+        course_list = []
+
+    session_list = []
+    try:
+        sessions = SessionYearModel.object.all()
+        for session in sessions:
+            small_session = (session.id, str(session.session_start_year)+"  TO  "+str(session.session_end_year))
+            session_list.append(small_session)
+
+    except:
+        #session_list = []
+        pass
 
     gender_choice = (
         ("Male", "Male"),
         ("Female", "Female")
     )
 
+    course = forms.ChoiceField(label="Course", choices=course_list,
+                               widget=forms.Select(attrs={"class": "form-control"}), required=False)
+
     gender = forms.ChoiceField(label="Gender", choices=gender_choice,
                                widget=forms.Select(attrs={"class":"form-control"}), required=False)
 
-    session_start = forms.DateField(label="Session Start", widget=DateInput(attrs={"class":"form-control"}), required=False)
+    session_year_id = forms.ChoiceField(label="Session Year", widget=forms.Select(attrs={"class":"form-control"}),choices=session_list, required=False)
 
-    session_end = forms.DateField(label="Session End", widget=DateInput(attrs={"class":"form-control"}), required=False)
 
     profile_pic = forms.FileField(label="Image", widget=forms.FileInput(attrs={"class":"form-control"}), required=False)

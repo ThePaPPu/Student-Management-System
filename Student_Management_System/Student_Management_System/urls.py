@@ -43,6 +43,9 @@ urlpatterns = [
     path('edit_subject/<str:subject_id>', AdminViews.edit_subject, name="edit_subject"),
     path('edit_subject_save', AdminViews.edit_subject_save, name="edit_subject_save"),
 
+    path('manage_session', AdminViews.manage_session, name="manage_session"),
+    path('add_session_save', AdminViews.add_session_save, name="add_session_save"),
+
 
     #Teacher
 
