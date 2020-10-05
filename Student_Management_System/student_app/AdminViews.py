@@ -366,7 +366,7 @@ def add_session(request):
 
 def add_session_save(request):
     if request.method != "POST":
-        return  HttpResponseRedirect(reverse("manage_session"))
+        return  HttpResponseRedirect(reverse("add_session"))
     else:
         session_start_year = request.POST.get("session_start")
         session_end_year = request.POST.get("session_end")
@@ -375,10 +375,41 @@ def add_session_save(request):
             session_year = SessionYearModel(session_start_year=session_start_year,session_end_year=session_end_year)
             session_year.save()
             messages.success(request, "Successfully Added Session")
-            return HttpResponseRedirect(reverse("manage_session"))
+            return HttpResponseRedirect(reverse("add_session"))
 
         except:
             messages.error(request, "Failed to Added Session")
-            return HttpResponseRedirect(reverse("manage_session" ))
+            return HttpResponseRedirect(reverse("add_session"))
 
 
+def manage_session(request):
+    sessions = SessionYearModel.object.all()
+    return render(request, "admin_template/manage_session_template.html", {"sessions": sessions})
+
+
+def edit_session(request,session_id):
+    session = SessionYearModel.object.get(id=session_id)
+    return render(request,"admin_template/edit_session_template.html", {"session": session, "id":session_id})
+
+
+def edit_session_save(request):
+    if request.method != "POST":
+        return HttpResponse("<h2>Method not allowed</h2>")
+
+    else:
+        session_id = request.POST.get("session_id")
+        session_start_year = request.POST.get("session_start")
+        session_end_year = request.POST.get("session_end")
+
+        try:
+            session = SessionYearModel.object.get(id=session_id)
+            session.session_start_year = session_start_year
+            session.session_end_year = session_end_year
+            session.save()
+
+            messages.success(request, "Successfully Edited Session")
+            return HttpResponseRedirect(reverse("edit_session",kwargs={"session_id":session_id}))
+
+        except:
+            messages.error(request, "Failed to Edit Session")
+            return HttpResponseRedirect(reverse("edit_session",kwargs={"session_id":session_id}))

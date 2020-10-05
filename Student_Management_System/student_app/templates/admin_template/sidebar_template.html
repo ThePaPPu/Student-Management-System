@@ -92,8 +92,11 @@
           </li>
           <li class="nav-item">
             {% url 'manage_subject' as manage_subject %}
-            {% url 'edit_subject' subject_id=id as edit_subject %}
-            <a href="{% url 'manage_subject' %}"   class="nav-link {% if request.path == manage_subject %} active {% endif %} {% if request.path == edit_subject %} active {% endif %}">
+
+            <!-- {% url 'edit_subject' subject_id=id as edit_subject %} -->
+
+            <a href="{% url 'manage_subject' %}"  class="nav-link {% if request.path == manage_subject %} active {% endif %}">
+
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Manage Subject
@@ -110,6 +113,20 @@
               </p>
             </a>
           </li>
+
+          <li class="nav-item">
+            {% url 'manage_session' as manage_session %}
+            {% url 'edit_session' session_id=id as edit_session %}
+            <a href="{% url 'manage_session' %}"  class="nav-link {% if request.path == manage_session %} active {% endif %} {% if request.path == edit_session %} active {% endif %}">
+
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Session Year
+              </p>
+            </a>
+          </li>
+
+
 
           <li class="nav-item">
             <a href="/add_staff" class="nav-link">
